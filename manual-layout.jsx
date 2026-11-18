@@ -5,6 +5,7 @@ import {Heading} from '@astryxdesign/core/Heading';
 import {Text} from '@astryxdesign/core/Text';
 import {Button} from '@astryxdesign/core/Button';
 import {Divider} from '@astryxdesign/core/Divider';
+import {SearchGuide} from './search-guide.jsx';
 
 const stages = [
   {id:'admin', number:'01', title:'Admin', action:'Chuẩn bị dữ liệu', output:'Nguồn dữ liệu & trường tìm kiếm'},
@@ -43,6 +44,7 @@ export function ManualLayout({sections, Step, capture}) {
         <a href="#tong-quan">Tổng quan</a><Divider/>
         <Text type="supporting" weight="bold">TẠO SEARCH COMPONENT</Text>
         {stages.map(stage=><a key={stage.id} href={'#'+stage.id}>{stage.number}　{stage.title} · {stage.action}</a>)}
+        <a href="#cau-hinh-search">　Cấu hình từng trường Search</a>
         <Divider/><a href="#check">Kiểm tra trước bàn giao</a>
       </VStack>
       <VStack gap={10} padding={8} style={{flex:'4 1 calc(var(--spacing-10) * 18)', minWidth:0}}>
@@ -57,7 +59,7 @@ export function ManualLayout({sections, Step, capture}) {
             </VStack>
             <VStack gap={2} padding={3} style={{...panel, flex:'1 1 calc(var(--spacing-10) * 9)'}}>
               <Text type="supporting">WEBREPORT 2.0 SMART / REPORT VIEW</Text>
-              <a href={capture('Screenshot 2026-11-18 103024.png')} target="_blank" rel="noreferrer"><img src={capture('Screenshot 2026-11-18 103024.png')} alt="Màn hình báo cáo và vùng điều kiện tìm kiếm trên WebReport" style={{display:'block',width:'100%',borderRadius:'var(--radius-md)'}} /></a>
+              <a href={capture('Screenshot 2026-11-18 103036.png')} target="_blank" rel="noreferrer"><img src={capture('Screenshot 2026-11-18 103036.png')} alt="Màn hình WebReport với điều kiện tìm kiếm và bảng kết quả có dữ liệu" style={{display:'block',width:'100%',borderRadius:'var(--radius-md)'}} /></a>
               <Text type="supporting">Từ cấu hình trong Design đến kết quả trên Web</Text>
             </VStack>
           </HStack>
@@ -80,6 +82,7 @@ export function ManualLayout({sections, Step, capture}) {
           <Divider/><VStack gap={3}><Text color="accent" weight="bold">{section.tag}</Text><Heading level={2}>{section.title}</Heading><Text as="p" type="large" color="secondary">{section.intro}</Text></VStack>
           <VStack gap={3}><Text weight="bold">LUỒNG THỰC HIỆN</Text><Pipeline items={paths[section.id]}/></VStack>
           {section.steps.map((step,i)=><Step key={step[0]} step={step} index={i}/>)}
+          {section.id === 'design' && <SearchGuide capture={capture}/>}
         </VStack>)}
         <Divider/><VStack as="section" id="check" gap={4}><Text color="accent" weight="bold">KIỂM TRA CUỐI CÙNG</Text><Heading level={2}>Trước khi bàn giao</Heading><Text as="p" type="large">Kiểm tra tên và kiểu dữ liệu của từng trường, quyền truy cập báo cáo, giá trị lựa chọn và kết quả khi thay đổi điều kiện tìm kiếm.</Text><Text as="p" color="secondary">Nếu trường không xuất hiện hoặc kết quả chưa đúng, đối chiếu lại cấu hình trong Design và nguồn dữ liệu trong Admin, sau đó kiểm tra lại trên Web.</Text></VStack>
         <Divider/><Text type="supporting">WebReport 2.0 Smart · Hướng dẫn tạo điều kiện tìm kiếm</Text>

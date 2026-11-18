@@ -20,14 +20,11 @@ export const sections=[
  {id:'admin',tag:'01 / ADMIN',title:'Chuẩn bị trong Admin',intro:'Kiểm tra nguồn dữ liệu và quyền truy cập trước khi tạo điều kiện tìm kiếm.',steps:[
   ['Mở công cụ quản trị','Khởi động công cụ WebReport từ thư mục cài đặt và đăng nhập bằng tài khoản được cấp.','Screenshot 2026-11-18 104418.png'],
   ['Mở danh sách đối tượng','Trong công cụ quản trị, mở khu vực quản lý dữ liệu và tìm nguồn dữ liệu dùng cho báo cáo.','Screenshot 2026-11-18 104511.png'],
-  ['Kiểm tra nguồn và trường dữ liệu','Chọn nguồn liên quan, xem các trường có thể dùng làm điều kiện Search. Ghi lại tên trường và kiểu dữ liệu để đối chiếu trong Design.','Screenshot 2026-11-18 104713.png']
+  ['Chọn schema và bảng','Trong Schema Definition, chọn schema vật lý và thêm bảng cần dùng. Ảnh minh họa dùng schema DEV; tên schema và bảng của ví dụ PostgreSQL trong tài liệu khác với ảnh.','Screenshot 2026-11-18 104713.png']
  ]},
  {id:'design',tag:'02 / DESIGN',title:'Tạo điều kiện Search trong Design',intro:'Mở báo cáo cần chỉnh sửa, thêm điều kiện tìm kiếm và kiểm tra thuộc tính của từng trường.',steps:[
   ['Mở báo cáo trong Design','Khởi động công cụ thiết kế, đăng nhập và chọn báo cáo cần chỉnh sửa từ danh sách.','Screenshot 2026-11-18 095940.png'],
-  ['Chọn vùng điều kiện','Trong màn hình thiết kế, xác định vùng điều kiện tìm kiếm của báo cáo và chọn trường cần cấu hình.','Screenshot 2026-11-18 101917.png'],
-  ['Thiết lập trường Search','Mở hộp thoại thuộc tính của trường. Đối chiếu tên hiển thị, trường dữ liệu và các tùy chọn với yêu cầu báo cáo trước khi xác nhận.','Screenshot 2026-11-18 102243.png'],
-  ['Kiểm tra lựa chọn và định dạng','Nếu trường cần danh sách lựa chọn hoặc thiết lập bổ sung, mở phần cấu hình tương ứng và kiểm tra giá trị được hiển thị.','Screenshot 2026-11-18 102357.png'],
-  ['Lưu và kiểm tra lại','Hoàn tất các thuộc tính, lưu thiết kế theo quy trình của hệ thống rồi mở báo cáo trên Web để kiểm tra.','Screenshot 2026-11-18 102549.png']
+  ['Mở Search Condition','Chọn tab 検索条件 (Search Condition). Mỗi dòng gồm trường lọc, điều kiện so sánh và giá trị hoặc công thức. Ảnh là một báo cáo thực tế khác, dùng để minh họa vị trí các cột.','Screenshot 2026-11-18 102021.png']
  ]},
  {id:'web',tag:'03 / WEB',title:'Kiểm tra trên WebReport',intro:'Sau khi cập nhật thiết kế, mở báo cáo trên Web và thử tìm kiếm bằng dữ liệu thực tế.',steps:[
   ['Đăng nhập WebReport','Mở trang WebReport và đăng nhập bằng tài khoản có quyền xem báo cáo.','Screenshot 2026-11-18 102925.png'],
