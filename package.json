@@ -1,0 +1,33 @@
+{
+  "name": "user-manual-webreport",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "node node_modules/vite/bin/vite.js --open /source.html",
+    "build": "node node_modules/vite/bin/vite.js build && node copy-build.mjs",
+    "preview": "node node_modules/vite/bin/vite.js preview",
+    "astryx": "node node_modules/@astryxdesign/cli/clients/cli/bin/astryx.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "WebReport 2.0 Smart user guide",
+  "dependencies": {
+    "@astryxdesign/core": "^0.7.16",
+    "@astryxdesign/theme-neutral": "^0.7.16",
+    "@stylexjs/stylex": "^0.19.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@astryxdesign/cli": "^0.7.16",
+    "@vitejs/plugin-react": "^4.7.0",
+    "node": "^22.23.5",
+    "vite": "^6.4.6",
+    "vite-plugin-singlefile": "^2.3.4"
+  },
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0 <23"
+  }
+}
