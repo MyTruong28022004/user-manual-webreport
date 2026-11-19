@@ -62,14 +62,13 @@ function manualSource() {
         .replaceAll('document.querySelector', 'container.querySelector')
         .replaceAll('document.getElementById(', 'find(')
         .replace("document.addEventListener('click'", "container.addEventListener('click'")
-        .replace("container.querySelectorAll('[data-fig]').forEach(()=>{});", '')
         .replaceAll('aria-label="Phóng to ảnh"', 'aria-label="\'+words.zoom+\'"')
         .replace('<img loading="lazy" alt=', '<img loading="lazy" \'+imageSize(n)+\' alt=')
         .replaceAll("b.textContent='Đã chép'", 'b.textContent=words.copied')
         .replaceAll("b.textContent='Đã chọn, nhấn Ctrl+C'", 'b.textContent=words.selected')
         .replaceAll("b.textContent='Sao chép'", 'b.textContent=words.copy')
         .replace('const g=G[i];', `const g=G[i];
-    const [key,title,condition,description] = gallery[i] ?? [g.k,g.title,g.cond,g.desc];
+    const [,title,condition,description] = gallery[i] ?? [g.k,g.title,g.cond,g.desc];
     const code = language === 'ja' ? g.code.replace('Report gọi:', 'リンク元:').replace('Report nhận:', 'リンク先:') : g.code;`)
         .replace("g.title+'</h4>'", "title+'</h4>'")
         .replace(/\(g\.img\?[^\r\n]+/, `(g.img?'<figure class="pv"><button class="fig" type="button" aria-label="'+words.zoom+'"><img '+imageSize(g.img)+' alt="'+title+'" src="'+IMG[g.img]+'"></button></figure>':'')+`)

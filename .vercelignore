@@ -1,5 +1,15 @@
 ﻿node_modules
 dist
 .vercel
-public
 index.html
+
+# Local reference files and previous screenshot exports
+/assets/captures/
+/setup-screenshots/
+/webreport-minh-chung-setup/
+/Guide.docx
+/WebReport_Search_Input_Validation_Guide.md
+/接続情報.json
+/HUONG_DAN_CAI_DAT_WEBREPORT_*.md
+/webreport20smart-*/
+/webreport20smart-*.zip
