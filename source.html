@@ -79,6 +79,9 @@
     .chapter-name { display: block; color: var(--color-text-accent); }
     .manual-article { display: block; min-width: 0; }
     .manual-article > section { margin-block: var(--spacing-10); }
+    .manual-article .last-topic {
+      min-block-size: calc(100svh - var(--manual-header-height) - var(--spacing-10) * 2);
+    }
     .manual-article h2 { font-size: clamp(1.85rem, 3.5vw, 2.65rem); letter-spacing: -.035em; line-height: 1.18; margin-block-end: var(--spacing-3); }
     .manual-article h3 { font-size: clamp(1.2rem, 2vw, 1.55rem); line-height: 1.35; margin-block: var(--spacing-8) var(--spacing-2); }
     .manual-article h4 { font-size: 1rem; margin-block: var(--spacing-5) var(--spacing-2); }

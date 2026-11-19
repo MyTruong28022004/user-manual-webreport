@@ -24,7 +24,7 @@ function readTopics(chapters) {
     const section = document.getElementById(chapter.id);
     const topics = Array.from(section.querySelectorAll('h3[id]'), heading => {
       const descriptions = [heading.textContent];
-      for (let element = heading.nextElementSibling; element && !element.matches('h2, h3'); element = element.nextElementSibling) {
+      for (let element = heading.nextElementSibling; element && !element.matches('h2, h3, section[aria-labelledby]'); element = element.nextElementSibling) {
         descriptions.push(element.textContent, element.dataset.cap ?? '');
       }
       return {id: heading.id, name: heading.textContent, search: normalize(descriptions.join(' '))};
