@@ -10,6 +10,20 @@ const translationPath = fileURLToPath(new URL('./manual-ja.json', import.meta.ur
 const manualModule = '\0webreport-manual';
 const inlineString = value => JSON.stringify(value).replaceAll('<', '\\u003c');
 
+function readImageSizes(script) {
+  const imageObject = script.match(/^const IMG\s*=\s*(\{[^\r\n]+\});/m);
+  if (!imageObject) throw new Error('Could not read the manual screenshots');
+  return Object.fromEntries(Object.entries(JSON.parse(imageObject[1])).flatMap(([id, url]) => {
+    const [type, data] = url.split(',', 2);
+    const header = Buffer.from(data.slice(0, 40), 'base64');
+    if (type === 'data:image/png;base64') return [[id, [header.readUInt32BE(16), header.readUInt32BE(20)]]];
+    if (type === 'data:image/webp;base64' && header.toString('ascii', 12, 16) === 'VP8 ') {
+      return [[id, [header.readUInt16LE(26) & 0x3fff, header.readUInt16LE(28) & 0x3fff]]];
+    }
+    return [];
+  }));
+}
+
 function translateMarkup(markup, translations) {
   return markup.split(/(<[^>]+>)/).map((part, index) => {
     if (index % 2) {
@@ -41,8 +55,8 @@ function manualSource() {
       if (!note || !wrapEnd.test(article[2]) || !script) {
         throw new Error('Could not read the article or reference tools in WebReport Manual.html');
       }
-      const content = article[2].replace(wrapEnd, '')
-        .replace(' Giao diện trang theo phong cách trung tính của Astryx (Meta).', '');
+      const content = article[2].replace(wrapEnd, '');
+      const sizes = readImageSizes(script[1]);
       const reference = script[1]
         .replace(/\/\* ---- lightbox ---- \*\/[\s\S]*?(?=\/\* ---- copy ---- \*\/)/, '')
         .replaceAll('document.querySelector', 'container.querySelector')
@@ -50,6 +64,7 @@ function manualSource() {
         .replace("document.addEventListener('click'", "container.addEventListener('click'")
         .replace("container.querySelectorAll('[data-fig]').forEach(()=>{});", '')
         .replaceAll('aria-label="Phóng to ảnh"', 'aria-label="\'+words.zoom+\'"')
+        .replace('<img loading="lazy" alt=', '<img loading="lazy" \'+imageSize(n)+\' alt=')
         .replaceAll("b.textContent='Đã chép'", 'b.textContent=words.copied')
         .replaceAll("b.textContent='Đã chọn, nhấn Ctrl+C'", 'b.textContent=words.selected')
         .replaceAll("b.textContent='Sao chép'", 'b.textContent=words.copy')
@@ -57,7 +72,7 @@ function manualSource() {
     const [key,title,condition,description] = gallery[i] ?? [g.k,g.title,g.cond,g.desc];
     const code = language === 'ja' ? g.code.replace('Report gọi:', 'リンク元:').replace('Report nhận:', 'リンク先:') : g.code;`)
         .replace("g.title+'</h4>'", "title+'</h4>'")
-        .replace(/\(g\.img\?[^\r\n]+/, `(g.img?'<figure class="pv"><button class="fig" type="button" aria-label="'+words.zoom+'"><img alt="'+title+'" src="'+IMG[g.img]+'"></button></figure>':'')+`)
+        .replace(/\(g\.img\?[^\r\n]+/, `(g.img?'<figure class="pv"><button class="fig" type="button" aria-label="'+words.zoom+'"><img '+imageSize(g.img)+' alt="'+title+'" src="'+IMG[g.img]+'"></button></figure>':'')+`)
         .replace("+g.desc", "+description")
         .replace('Search Condition phù hợp:</b> \'+g.cond', "'+words.condition+'</b> '+condition")
         .replace('>Value/formula</span>', ">'+words.formula+'</span>")
@@ -67,6 +82,11 @@ function manualSource() {
         .replace("+r[2]+'</td>'", "+(conditions[index] ?? r[2])+'</td>'");
       return `export const content = ${inlineString({vi: content, ja: translateMarkup(content, translations)})};
 export const prerequisites = ${inlineString({vi: note, ja: translateMarkup(note, translations)})};
+const imageSizes = ${inlineString(sizes)};
+const imageSize = id => {
+  const size = imageSizes[id];
+  return size ? 'width="' + size[0] + '" height="' + size[1] + '"' : '';
+};
 export function initializeReference(container, language) {
   const find = id => container.querySelector('#' + id);
   const gallery = language === 'ja' ? ${inlineString(japaneseGallery)} : [];

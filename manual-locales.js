@@ -2,7 +2,7 @@ export const interfaceText = {
   vi: {
     title: 'WebReport 2.0 Smart | Hướng dẫn sử dụng',
     skip: 'Đến nội dung chính', home: 'WebReport, về tổng quan', contents: 'Mục lục',
-    light: 'Giao diện sáng', dark: 'Giao diện tối', language: 'Ngôn ngữ hiển thị',
+    light: 'Bật giao diện sáng', dark: 'Bật giao diện tối', language: 'Ngôn ngữ hiển thị',
     search: 'Tìm trong hướng dẫn', placeholder: 'Ví dụ: JEX, Đặt BK, @INPUT',
     overview: 'Tổng quan', noResults: 'Không tìm thấy mục phù hợp.',
     label: 'Tài liệu người dùng',
@@ -19,7 +19,7 @@ export const interfaceText = {
   ja: {
     title: 'WebReport 2.0 Smart | ユーザーガイド',
     skip: '本文へ移動', home: 'WebReport の概要へ', contents: '目次',
-    light: 'ライトモード', dark: 'ダークモード', language: '表示言語',
+    light: 'ライトモードに切り替え', dark: 'ダークモードに切り替え', language: '表示言語',
     search: 'ガイド内を検索', placeholder: '例：JEX、BK、@INPUT',
     overview: '概要', noResults: '該当する項目が見つかりません。',
     label: 'ユーザーガイド',

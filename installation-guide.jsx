@@ -1,4 +1,5 @@
 import React from 'react';
+import {setupEvidence} from './setup-evidence.js';
 
 const downloads = {
   java: 'https://aka.ms/download-jdk/microsoft-jdk-21.0.1-windows-x64.zip',
@@ -199,11 +200,23 @@ export function InstallationGuide({language}) {
           <React.Fragment key={id}>
             <h3 id={id}>{title}</h3>
             <ol className="steps">
-              {items.map((item, itemIndex) => (
-                <li key={item} data-step={`${groupIndex}.${itemIndex + 1}`}>
-                  <p>{inline(item, labels)}</p>
-                </li>
-              ))}
+              {items.map((item, itemIndex) => {
+                const step = itemIndex + 1;
+                const evidence = setupEvidence[id]?.[step];
+                return (
+                  <li key={item} data-step={`${groupIndex}.${step}`}>
+                    <p>{inline(item, labels)}</p>
+                    {evidence && (
+                      <figure className="setup-evidence">
+                        <button className="fig" type="button">
+                          <img src={evidence.src} width={evidence.width} height={evidence.height} alt={evidence[language]} loading="lazy" />
+                        </button>
+                        <figcaption>{evidence[language]}</figcaption>
+                      </figure>
+                    )}
+                  </li>
+                );
+              })}
             </ol>
             {example && (
               <section className="code">

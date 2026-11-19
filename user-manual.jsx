@@ -1,6 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {Button} from '@astryxdesign/core/Button';
+import {Icon} from '@astryxdesign/core/Icon';
+import {IconButton} from '@astryxdesign/core/IconButton';
 import {Heading} from '@astryxdesign/core/Heading';
 import {HStack} from '@astryxdesign/core/HStack';
 import {Text} from '@astryxdesign/core/Text';
@@ -14,6 +16,23 @@ import {InstallationGuide} from './installation-guide.jsx';
 
 const theme = defineTheme({name: 'webreport', color: {accent: '#075985', neutralStyle: 'cool'}});
 const chapterIds = ['setup', 'admin', 'designer', 'web', 'tra-cuu'];
+
+function SunIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" {...props}>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M19 5l-1.5 1.5m-11 11L5 19" />
+    </svg>
+  );
+}
+
+function MoonIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" {...props}>
+      <path d="M20.9 13.2A9 9 0 0 1 10.8 3.1a9 9 0 1 0 10.1 10.1Z" />
+    </svg>
+  );
+}
 
 const normalize = value => value.toLowerCase().replace(/[\u00c0-\u024f\u1e00-\u1eff]/g, letter =>
   letter.normalize('NFD').replace(/\p{M}/gu, '').replaceAll('đ', 'd')
@@ -84,6 +103,7 @@ function App() {
   const languageTarget = useRef(null);
   const previousFocus = useRef(null);
   const [photo, setPhoto] = useState(null);
+  const themeAction = dark ? labels.light : labels.dark;
 
   useEffect(() => {
     document.documentElement.lang = language;
@@ -190,7 +210,7 @@ function App() {
               <option value="ja" lang="ja">日本語</option>
               <option value="vi" lang="vi">Tiếng Việt</option>
             </select>
-            <Button variant="secondary" label={dark ? labels.light : labels.dark} onClick={toggleTheme} />
+            <IconButton label={themeAction} tooltip={themeAction} icon={<Icon icon={dark ? SunIcon : MoonIcon} />} onClick={toggleTheme} />
           </HStack>
         </HStack>
         <HStack as="section" className="manual-frame" vAlign="start">
@@ -216,7 +236,7 @@ function App() {
               ))}
             </VStack>
             <VStack as="section" aria-label={labels.before} dangerouslySetInnerHTML={localizedIntro[language]} />
-            <VStack as="article" className="manual-article">
+            <VStack as="article" className="manual-article" onClick={openPhoto}>
               <InstallationGuide language={language} />
             </VStack>
             <VStack key={language} ref={article} as="article" className="manual-article" dangerouslySetInnerHTML={localizedArticle[language]} onClick={openPhoto} />
