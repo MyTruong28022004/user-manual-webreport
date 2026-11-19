@@ -10,9 +10,10 @@ import '@astryxdesign/core/reset.css';
 import '@astryxdesign/core/astryx.css';
 import {content, initializeReference, prerequisites} from 'virtual:webreport-manual';
 import {interfaceText} from './manual-locales.js';
+import {InstallationGuide} from './installation-guide.jsx';
 
 const theme = defineTheme({name: 'webreport', color: {accent: '#075985', neutralStyle: 'cool'}});
-const chapterIds = ['admin', 'designer', 'web', 'tra-cuu'];
+const chapterIds = ['setup', 'admin', 'designer', 'web', 'tra-cuu'];
 
 const normalize = value => value.toLowerCase().replace(/[\u00c0-\u024f\u1e00-\u1eff]/g, letter =>
   letter.normalize('NFD').replace(/\p{M}/gu, '').replaceAll('đ', 'd')
@@ -89,7 +90,7 @@ function App() {
     document.title = labels.title;
     initializeReference(article.current, language);
     setGroups(readTopics(chapters));
-    const targets = [...document.querySelectorAll('#tong-quan, .manual-article > section[id], .manual-article h3[id]')];
+    const targets = [...document.querySelectorAll('#tong-quan, .manual-article section[id], .manual-article h3[id]')];
     let frame = 0;
     function syncSection() {
       const headerBottom = document.querySelector('.manual-header').getBoundingClientRect().bottom;
@@ -215,6 +216,9 @@ function App() {
               ))}
             </VStack>
             <VStack as="section" aria-label={labels.before} dangerouslySetInnerHTML={localizedIntro[language]} />
+            <VStack as="article" className="manual-article">
+              <InstallationGuide language={language} />
+            </VStack>
             <VStack key={language} ref={article} as="article" className="manual-article" dangerouslySetInnerHTML={localizedArticle[language]} onClick={openPhoto} />
           </VStack>
         </HStack>

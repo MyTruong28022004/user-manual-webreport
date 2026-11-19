@@ -1,3 +1,8 @@
 ﻿node_modules/
 dist/
 .vercel/
+
+# WebReport installation files
+/HUONG_DAN_CAI_DAT_WEBREPORT_*.md
+/webreport20smart-*/
+/webreport20smart-*.zip

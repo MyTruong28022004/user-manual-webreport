@@ -74,6 +74,7 @@
     .chapter-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--spacing-3); margin-block: var(--spacing-5); }
     .chapter-link { display: block; padding: var(--spacing-4); border: var(--manual-border); border-radius: var(--radius-element); background: var(--color-background-surface); }
     .chapter-link:hover { border-color: var(--color-accent); background: var(--color-accent-muted); }
+    .chapter-link:first-child { grid-column: 1 / -1; background: var(--color-accent-muted); }
     .chapter-summary { display: block; margin-block-start: var(--spacing-1); font-size: .875rem; line-height: 1.45; }
     .chapter-name { display: block; color: var(--color-text-accent); }
     .manual-article { display: block; min-width: 0; }
@@ -84,6 +85,8 @@
     .manual-article p { margin-block: var(--spacing-2) var(--spacing-3); max-width: 75ch; }
     .manual-article ul, .manual-article ol { padding-inline-start: var(--spacing-6); margin-block: var(--spacing-3); }
     .manual-article li::marker { color: var(--color-text-accent); font-weight: 650; }
+    .installation-guide .steps { padding-inline-start: var(--spacing-8); }
+    .installation-guide .steps li::marker { content: attr(data-step) "  "; }
     .manual-article li p { margin-block: var(--spacing-1); }
     .manual-article hr { border: 0; border-top: var(--manual-border); margin: var(--spacing-8) 0; }
     .part { font-size: .85rem; font-weight: 700; color: var(--color-text-accent); letter-spacing: .04em; margin-block-end: var(--spacing-2); }
@@ -94,6 +97,7 @@
     }
     .note i { color: var(--color-text-accent); font-weight: 750; font-style: normal; }
     .note p { margin: 0; }
+    .note > p:only-child { grid-column: 1 / -1; }
     .note .t { font-weight: 700; }
     .note.warn { background: var(--color-warning-muted); }
     .note.err { background: var(--color-error-muted); }
