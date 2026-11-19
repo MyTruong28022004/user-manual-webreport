@@ -2,11 +2,11 @@
 
 ## Mở tài liệu
 
-Mở `index.html` trực tiếp trong trình duyệt. Giao diện và ảnh minh họa được nhúng trong file.
+Mở `index.html` trực tiếp trong trình duyệt. Giao diện và ảnh minh họa được nhúng trong file. Trang dùng tiếng Nhật mặc định. Chọn **Tiếng Việt** ở đầu trang để chuyển ngôn ngữ. Trình duyệt ghi nhớ lựa chọn này.
 
 ## Phát triển
 
-Cần Node.js 22.13 trở lên và npm. Chạy `npm ci`, sau đó `npm run dev`. Vite mở `source.html` làm trang phát triển. Chạy `npm run build` để tạo `dist/index.html` và cập nhật bản `index.html` ở thư mục gốc.
+Cần Node.js 22.13 trở lên và npm. Chạy `npm ci`, sau đó `npm run dev`. Vite mở `source.html` làm trang phát triển. Nội dung tiếng Việt và hình minh họa lấy từ `WebReport Manual.html`. Bản dịch nội dung nằm trong `manual-ja.json`. Nhãn giao diện, chú thích ảnh và các mục tra cứu tương tác nằm trong `manual-locales.js`. Chạy `npm run build` để tạo `dist/index.html` và cập nhật bản `index.html` ở thư mục gốc.
 
 ## Triển khai lên Vercel
 

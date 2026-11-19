@@ -59,7 +59,7 @@ export function ManualLayout({sections, Step, capture}) {
             </VStack>
             <VStack gap={2} padding={3} style={{...panel, flex:'1 1 calc(var(--spacing-10) * 9)'}}>
               <Text type="supporting">WEBREPORT 2.0 SMART / REPORT VIEW</Text>
-              <a href={capture('Screenshot 2026-11-18 103036.png')} target="_blank" rel="noreferrer"><img src={capture('Screenshot 2026-11-18 103036.png')} alt="Màn hình WebReport với điều kiện tìm kiếm và bảng kết quả có dữ liệu" style={{display:'block',width:'100%',borderRadius:'var(--radius-md)'}} /></a>
+              <a href={capture('web-ket-qua-tim-kiem.png')} target="_blank" rel="noreferrer"><img src={capture('web-ket-qua-tim-kiem.png')} alt="Màn hình WebReport với điều kiện tìm kiếm và bảng kết quả có dữ liệu" style={{display:'block',width:'100%',borderRadius:'var(--radius-md)'}} /></a>
               <Text type="supporting">Từ cấu hình trong Design đến kết quả trên Web</Text>
             </VStack>
           </HStack>
