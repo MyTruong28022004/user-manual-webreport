@@ -32,7 +32,7 @@ const guideByLanguage = {
     save: 'Tải mẫu',
     steps: [
       {
-        id: 'setup-resources', title: '0. Tải và kiểm tra các tệp cài đặt',
+        id: 'setup-resources', title: '1. Tải và kiểm tra các tệp cài đặt',
         items: [
           'Bấm [[java]]. Lưu tệp `microsoft-jdk-21.0.1-windows-x64.zip` vào thư mục Tải xuống. Đây là bản OpenJDK 21.0.1 cho Windows 64-bit của Microsoft.',
           'Bấm [[tomcat]]. Lưu tệp `apache-tomcat-9.0.113.exe` vào thư mục Tải xuống.',
@@ -42,18 +42,18 @@ const guideByLanguage = {
         labels: {java: 'Tải OpenJDK 21.0.1', tomcat: 'Tải Apache Tomcat 9.0.113', webreport: 'trang tải bản dùng thử WebReport của JBCC'},
       },
       {
-        id: 'setup-server', title: '1. Cài Java, cấu hình Tomcat và triển khai WebReport',
+        id: 'setup-server', title: '2. Cài Java, cấu hình Tomcat và triển khai WebReport',
         items: [
           'Bấm chuột phải vào tệp ZIP Java và chọn `Extract All…`. Chép thư mục đã giải nén có chứa `bin` vào `C:\\WebReport\\jdk-21.0.1`. Kiểm tra bằng lệnh PowerShell `& "C:\\WebReport\\jdk-21.0.1\\bin\\java.exe" -version`.',
           'Chạy `apache-tomcat-9.0.113.exe` bằng quyền quản trị. Chọn dịch vụ Windows tên `Tomcat9`, cổng HTTP `8080` và thư mục cài `C:\\WebReport\\Tomcat9`. Khi được hỏi thư mục Java, chọn `C:\\WebReport\\jdk-21.0.1`.',
           'Mở `services.msc`, tìm Apache Tomcat, dừng dịch vụ `Tomcat9` và sao lưu thư mục `C:\\WebReport\\Tomcat9\\conf`. Nếu cần xác nhận Java, chạy `C:\\WebReport\\Tomcat9\\bin\\tomcat9w.exe`, vào thẻ `Java` và đặt `Java Virtual Machine` thành `C:\\WebReport\\jdk-21.0.1\\bin\\server\\jvm.dll`.',
           'Trong bộ cài, mở `WebReport51011bTrial\\WRS\\Support\\Windows\\Tomcat 9.0\\conf`. Với máy cài mới, chép `server.xml` và `context.xml` vào `C:\\WebReport\\Tomcat9\\conf`. Nếu Tomcat đã phục vụ ứng dụng khác, mở từng tệp và bổ sung các cấu hình bên dưới vào bản hiện tại.',
           'Mở `C:\\WebReport\\Tomcat9\\conf\\server.xml` bằng trình soạn thảo chạy với quyền quản trị. Kiểm tra Connector có `protocol="HTTP/1.1"` và `port="8080"`. Nếu không dùng AJP, tìm Connector có `protocol="AJP/1.3"` và vô hiệu hóa cả phần tử bằng chú thích XML `<!-- … -->`. Lưu tệp.',
-          'Chép `WebReport51011bTrial\\WRS\\Module\\cvbi.war` vào `C:\\WebReport\\Tomcat9\\webapps\\cvbi.war`. Thực hiện cấu hình H2 ở bước 2 trước khi bật lại Tomcat.',
+          'Chép `WebReport51011bTrial\\WRS\\Module\\cvbi.war` vào `C:\\WebReport\\Tomcat9\\webapps\\cvbi.war`. Thực hiện cấu hình H2 ở bước 3 trước khi bật lại Tomcat.',
         ],
       },
       {
-        id: 'setup-db', title: '2. Cấu hình và khởi tạo cơ sở dữ liệu quản trị H2',
+        id: 'setup-db', title: '3. Cấu hình và khởi tạo cơ sở dữ liệu quản trị H2',
         items: [
           'Tạo thư mục `C:\\cvconfig\\cvdb\\h2`. Trong `services.msc`, mở thuộc tính `Tomcat9`, xem thẻ `Log On` để biết tài khoản chạy dịch vụ. Trong thuộc tính thư mục H2, vào `Security → Edit` và cấp quyền `Modify` cho đúng tài khoản đó.',
           'Mở `C:\\WebReport\\Tomcat9\\conf\\context.xml`, tìm `<Resource name="jdbc/CVDB"` nằm bên trong `<Context>`. Đối chiếu với mẫu H2 bên dưới. Nếu chưa có, thêm một Resource vào trước `</Context>`. Chỉ giữ một mục `jdbc/CVDB` và thay `REPLACE_WITH_H2_PASSWORD` bằng mật khẩu H2 thực tế nếu dùng mẫu.',
@@ -63,7 +63,7 @@ const guideByLanguage = {
         template: 'h2',
       },
       {
-        id: 'setup-admin', title: '3. Cài Admin Management và đăng ký giấy phép',
+        id: 'setup-admin', title: '4. Cài Admin Management và đăng ký giấy phép',
         items: [
           'Mở `WebReport51011bTrial\\WRS\\admin`, bấm chuột phải vào `WebReportSmartAdministrator32.exe` và chọn `Run as administrator`.',
           'Sau khi cài, mở `C:\\CustomerVision\\WebReport\\CvBiMgr3u.exe` hoặc mở tệp cùng tên từ thư mục cài đã chọn. Nhập `localhost:8080/cvbi` vào ô máy chủ, bỏ tiền tố `http://`.',
@@ -72,15 +72,15 @@ const guideByLanguage = {
         ],
       },
       {
-        id: 'setup-designer', title: '4. Cài Designer và lưu báo cáo',
+        id: 'setup-designer', title: '5. Cài Designer và lưu báo cáo',
         items: [
           'Mở `WebReport51011bTrial\\WRS\\designer`. Bấm chuột phải vào `WebReportSmartDesigner32.exe` và chọn `Run as administrator`.',
           'Mở `CvBiDesigner.exe` trong thư mục cài. Nhập `localhost:8080/cvbi` khi chạy trên máy chủ, hoặc thay `localhost` bằng tên máy chủ Tomcat khi chạy từ máy khác. Đăng nhập bằng tài khoản có quyền thiết kế.',
-          'Trong Admin, đăng ký nguồn dữ liệu và bảng. Nếu dùng Oracle, cấu hình theo bước 6 trước. Trong Designer, chọn bảng, thêm cột cần hiển thị, chạy thử rồi lưu báo cáo vào thư mục menu mà người xem có quyền mở.',
+          'Trong Admin, đăng ký nguồn dữ liệu và bảng. Nếu dùng Oracle, cấu hình theo bước 7 trước. Trong Designer, chọn bảng, thêm cột cần hiển thị, chạy thử rồi lưu báo cáo vào thư mục menu mà người xem có quyền mở.',
         ],
       },
       {
-        id: 'setup-web', title: '5. Đăng nhập và chạy báo cáo trên trình duyệt',
+        id: 'setup-web', title: '6. Đăng nhập và chạy báo cáo trên trình duyệt',
         items: [
           'Trên máy chủ, mở `http://localhost:8080/cvbi/login`. Từ máy khác, dùng địa chỉ truy cập được cấp cho máy chủ Tomcat.',
           'Đăng nhập bằng tài khoản người xem. Mở báo cáo trong cây menu, nhập điều kiện tìm kiếm và kiểm tra kết quả. Nếu không thấy báo cáo, kiểm tra thư mục lưu và quyền truy cập menu.',
@@ -88,7 +88,7 @@ const guideByLanguage = {
         ],
       },
       {
-        id: 'setup-oracle', title: '6. Cấu hình Oracle JDBC nếu báo cáo dùng Oracle',
+        id: 'setup-oracle', title: '7. Cấu hình Oracle JDBC nếu báo cáo dùng Oracle',
         items: [
           'Mở [[oracle]]. Chọn bản trình điều khiển phù hợp với phiên bản Oracle Database và Java 21 đang dùng. Trong bảng tải xuống, bấm `ojdbc11.jar` nếu bản đó hỗ trợ Java 21, rồi lưu tệp JAR.',
           'Dừng `Tomcat9`. Chép tệp JAR vào `C:\\WebReport\\Tomcat9\\lib`. Mở `conf\\context.xml` và thêm một Resource có tên riêng, ví dụ `jdbc/OracleReports`, trước `</Context>`. Giữ nguyên Resource `jdbc/CVDB` của H2.',
@@ -106,7 +106,7 @@ const guideByLanguage = {
     save: '設定例をダウンロード',
     steps: [
       {
-        id: 'setup-resources', title: '0. インストールファイルの取得と確認',
+        id: 'setup-resources', title: '1. インストールファイルの取得と確認',
         items: [
           '[[java]] をクリックし、`microsoft-jdk-21.0.1-windows-x64.zip` を「ダウンロード」フォルダーに保存します。Microsoft の Windows 64 ビット版 OpenJDK です。',
           '[[tomcat]] をクリックし、`apache-tomcat-9.0.113.exe` を「ダウンロード」フォルダーに保存します。',
@@ -116,18 +116,18 @@ const guideByLanguage = {
         labels: {java: 'OpenJDK 21.0.1 をダウンロード', tomcat: 'Apache Tomcat 9.0.113 をダウンロード', webreport: 'JBCC の WebReport 評価版ダウンロードページ'},
       },
       {
-        id: 'setup-server', title: '1. Java の導入、Tomcat の設定、WebReport の配置',
+        id: 'setup-server', title: '2. Java の導入、Tomcat の設定、WebReport の配置',
         items: [
           'Java の ZIP ファイルを右クリックして「すべて展開」を選びます。`bin` を含むフォルダーを `C:\\WebReport\\jdk-21.0.1` に配置します。PowerShell で `& "C:\\WebReport\\jdk-21.0.1\\bin\\java.exe" -version` を実行して確認します。',
           '`apache-tomcat-9.0.113.exe` を管理者として実行します。サービス名に `Tomcat9`、HTTP ポートに `8080`、インストール先に `C:\\WebReport\\Tomcat9`、Java のフォルダーに `C:\\WebReport\\jdk-21.0.1` を指定します。',
           '`services.msc` で `Tomcat9` を停止し、`C:\\WebReport\\Tomcat9\\conf` をバックアップします。Java を確認する場合は `C:\\WebReport\\Tomcat9\\bin\\tomcat9w.exe` の「Java」タブを開き、`Java Virtual Machine` に `C:\\WebReport\\jdk-21.0.1\\bin\\server\\jvm.dll` を指定します。',
           '新規インストールの場合、`WebReport51011bTrial\\WRS\\Support\\Windows\\Tomcat 9.0\\conf` の `server.xml` と `context.xml` を `C:\\WebReport\\Tomcat9\\conf` にコピーします。既存の Tomcat に追加する場合は、現在のファイルに以下の設定を反映します。',
           '管理者権限のエディターで `C:\\WebReport\\Tomcat9\\conf\\server.xml` を開き、`protocol="HTTP/1.1"` のコネクターが `port="8080"` であることを確認します。AJP が不要な場合は `protocol="AJP/1.3"` の要素全体を XML コメント `<!-- … -->` で囲み、保存します。',
-          '`WebReport51011bTrial\\WRS\\Module\\cvbi.war` を `C:\\WebReport\\Tomcat9\\webapps\\cvbi.war` にコピーします。手順 2 で H2 を設定してから Tomcat を起動します。',
+          '`WebReport51011bTrial\\WRS\\Module\\cvbi.war` を `C:\\WebReport\\Tomcat9\\webapps\\cvbi.war` にコピーします。手順 3 で H2 を設定してから Tomcat を起動します。',
         ],
       },
       {
-        id: 'setup-db', title: '2. H2 管理データベースの設定と初期化',
+        id: 'setup-db', title: '3. H2 管理データベースの設定と初期化',
         items: [
           '`C:\\cvconfig\\cvdb\\h2` を作成します。`services.msc` で `Tomcat9` のプロパティの「ログオン」タブから実行アカウントを確認し、H2 フォルダーの「セキュリティ → 編集」でそのアカウントに「変更」を許可します。',
           '`C:\\WebReport\\Tomcat9\\conf\\context.xml` を開きます。`<Context>` 内の `<Resource name="jdbc/CVDB"` を以下の設定例と照合します。なければ `</Context>` の直前に追加します。`jdbc/CVDB` は 1 件だけにし、設定例の `REPLACE_WITH_H2_PASSWORD` は実際のパスワードに変更します。',
@@ -137,7 +137,7 @@ const guideByLanguage = {
         template: 'h2',
       },
       {
-        id: 'setup-admin', title: '3. 管理ツールの導入とライセンス登録',
+        id: 'setup-admin', title: '4. 管理ツールの導入とライセンス登録',
         items: [
           '`WebReport51011bTrial\\WRS\\admin` を開き、`WebReportSmartAdministrator32.exe` を右クリックして「管理者として実行」を選びます。',
           '`C:\\CustomerVision\\WebReport\\CvBiMgr3u.exe`、または指定したインストール先の同名ファイルを開きます。サーバー欄に `localhost:8080/cvbi` を入力します。`http://` は付けません。',
@@ -146,15 +146,15 @@ const guideByLanguage = {
         ],
       },
       {
-        id: 'setup-designer', title: '4. 定義設計ツールの導入と帳票の保存',
+        id: 'setup-designer', title: '5. 定義設計ツールの導入と帳票の保存',
         items: [
           '`WebReport51011bTrial\\WRS\\designer` を開き、`WebReportSmartDesigner32.exe` を右クリックして「管理者として実行」を選びます。',
           'インストール先の `CvBiDesigner.exe` を開きます。サーバー上では `localhost:8080/cvbi`、別の端末では `localhost` の代わりに Tomcat のホスト名を指定し、定義設計権限のあるアカウントでログインします。',
-          '管理ツールでデータソースとテーブルを登録します。Oracle を使用する場合は先に手順 6 を実施します。定義設計ツールでテーブルと表示列を選んで試行し、閲覧権限のあるメニューフォルダーに保存します。',
+          '管理ツールでデータソースとテーブルを登録します。Oracle を使用する場合は先に手順 7 を実施します。定義設計ツールでテーブルと表示列を選んで試行し、閲覧権限のあるメニューフォルダーに保存します。',
         ],
       },
       {
-        id: 'setup-web', title: '5. ブラウザーでログインして帳票を実行',
+        id: 'setup-web', title: '6. ブラウザーでログインして帳票を実行',
         items: [
           'サーバーで `http://localhost:8080/cvbi/login` を開きます。別の端末では案内された Tomcat サーバーのアドレスを使用します。',
           '閲覧者のアカウントでログインします。メニューツリーで帳票を開き、条件を入力して結果を確認します。帳票が表示されない場合は保存先と閲覧権限を確認します。',
@@ -162,7 +162,7 @@ const guideByLanguage = {
         ],
       },
       {
-        id: 'setup-oracle', title: '6. Oracle を使う帳票向けの JDBC 設定',
+        id: 'setup-oracle', title: '7. Oracle を使う帳票向けの JDBC 設定',
         items: [
           '[[oracle]]を開きます。使用する Oracle Database と Java 21 に対応する版を選びます。ダウンロード表で Java 21 に対応した `ojdbc11.jar` を選び、JAR ファイルを保存します。',
           '`Tomcat9` を停止し、JAR ファイルを `C:\\WebReport\\Tomcat9\\lib` にコピーします。`conf\\context.xml` を開き、別名の Resource（例：`jdbc/OracleReports`）を `</Context>` の直前に追加します。H2 の `jdbc/CVDB` は残します。',
@@ -204,7 +204,7 @@ export function InstallationGuide({language}) {
                 const step = itemIndex + 1;
                 const evidence = setupEvidence[id]?.[step];
                 return (
-                  <li key={item} data-step={`${groupIndex}.${step}`}>
+                  <li key={item} data-step={`${groupIndex + 1}.${step}`}>
                     <p>{inline(item, labels)}</p>
                     {evidence && (
                       <figure className="setup-evidence">
