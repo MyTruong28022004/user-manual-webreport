@@ -100,7 +100,11 @@
       padding: var(--spacing-4); margin-block: var(--spacing-4); border: var(--manual-border);
       border-radius: var(--radius-element); background: var(--color-accent-muted);
     }
-    .note i { color: var(--color-text-accent); font-weight: 750; font-style: normal; }
+    .note.info i {
+      display: grid; place-items: center; inline-size: var(--spacing-5); block-size: var(--spacing-5);
+      border: var(--border-width) solid currentColor; border-radius: 50%;
+      color: var(--color-text-accent); font-weight: 750; font-style: normal; line-height: 1;
+    }
     .note p { margin: 0; }
     .note > p:only-child { grid-column: 1 / -1; }
     .note .t { font-weight: 700; }
