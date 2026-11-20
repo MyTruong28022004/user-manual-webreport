@@ -100,7 +100,7 @@
       padding: var(--spacing-4); margin-block: var(--spacing-4); border: var(--manual-border);
       border-radius: var(--radius-element); background: var(--color-accent-muted);
     }
-    .note.info i {
+    .note.info i, .note.warn i, .note.err i {
       display: grid; place-items: center; inline-size: var(--spacing-5); block-size: var(--spacing-5);
       border: var(--border-width) solid currentColor; border-radius: 50%;
       color: var(--color-text-accent); font-weight: 750; font-style: normal; line-height: 1;
@@ -109,7 +109,9 @@
     .note > p:only-child { grid-column: 1 / -1; }
     .note .t { font-weight: 700; }
     .note.warn { background: var(--color-warning-muted); }
+    .note.warn i { color: var(--color-text-warning); }
     .note.err { background: var(--color-error-muted); }
+    .note.err i { color: var(--color-text-error); }
     .note.ok { background: var(--color-success-muted); }
     .manual-article figure { width: min(100%, var(--manual-image-width)); margin: var(--spacing-4) auto var(--spacing-5); min-width: 0; }
     .installation-guide .setup-evidence {
