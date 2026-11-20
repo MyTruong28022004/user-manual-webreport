@@ -27,8 +27,8 @@ const templates = {
 
 const guideByLanguage = {
   vi: {
-    title: 'Cài đặt và cấu hình WebReport 5.10.11.b',
-    intro: 'Hướng dẫn cho Windows 64-bit. Chuẩn bị tài khoản quản trị Windows và cổng 8080 còn trống. Các đường dẫn bên dưới dùng thư mục C:\\WebReport làm ví dụ.',
+    title: 'Cài đặt và cấu hình WebReport 2.0 Smart',
+    intro: 'Hướng dẫn cho Windows 64-bit, sử dụng gói dùng thử 5.10.11.b của WebReport 2.0 Smart (tên thư mục WebReport51011bTrial). 5.10.11.b là phiên bản gói được dùng trong ví dụ; hãy đối chiếu tài liệu đi kèm nếu dùng gói khác. Chuẩn bị tài khoản quản trị Windows và cổng 8080 còn trống. Các đường dẫn bên dưới dùng thư mục C:\\WebReport làm ví dụ.',
     save: 'Tải mẫu',
     steps: [
       {
@@ -101,8 +101,8 @@ const guideByLanguage = {
     ],
   },
   ja: {
-    title: 'WebReport 5.10.11.b のインストールと設定',
-    intro: '64 ビット版 Windows 向けの手順です。管理者アカウントを用意し、8080 番ポートが空いていることを確認します。以下では C:\\WebReport を使用します。',
+    title: 'WebReport 2.0 Smart のインストールと設定',
+    intro: '64 ビット版 Windows 向けの手順です。WebReport 2.0 Smart の評価版パッケージ 5.10.11.b（フォルダー名 WebReport51011bTrial）を例にしています。別のパッケージを使用する場合は付属の手順を確認してください。Windows の管理者アカウントを用意し、8080 番ポートが空いていることを確認します。以下では C:\\WebReport を使用します。',
     save: '設定例をダウンロード',
     steps: [
       {
