@@ -98,11 +98,8 @@ function App() {
   });
   const search = useRef(null);
   const menu = useRef(null);
-  const dialog = useRef(null);
   const article = useRef(null);
   const languageTarget = useRef(null);
-  const previousFocus = useRef(null);
-  const [photo, setPhoto] = useState(null);
   const themeAction = dark ? labels.light : labels.dark;
 
   useEffect(() => {
@@ -137,7 +134,7 @@ function App() {
 
   useEffect(() => {
     function handleShortcut(event) {
-      if (event.key === 'Escape' && menuOpen && !dialog.current?.open) {
+      if (event.key === 'Escape' && menuOpen) {
         setMenuOpen(false);
         menu.current?.querySelector('button')?.focus();
       }
@@ -151,10 +148,6 @@ function App() {
     return () => document.removeEventListener('keydown', handleShortcut);
   }, [menuOpen]);
 
-  useEffect(() => {
-    if (photo) dialog.current.showModal();
-  }, [photo]);
-
   function toggleTheme() {
     const next = !dark;
     setDark(next);
@@ -167,14 +160,6 @@ function App() {
     setLanguage(next);
     setQuery('');
     try { localStorage.setItem('webreport-language', next); } catch {}
-  }
-
-  function openPhoto(event) {
-    const trigger = event.target.closest('.fig');
-    if (!trigger) return;
-    const image = trigger.querySelector('img');
-    previousFocus.current = trigger;
-    setPhoto({src: image.src, caption: image.alt});
   }
 
   function navigate(event) {
@@ -236,24 +221,12 @@ function App() {
               ))}
             </VStack>
             <VStack as="section" aria-label={labels.before} dangerouslySetInnerHTML={localizedIntro[language]} />
-            <VStack as="article" className="manual-article" onClick={openPhoto}>
+            <VStack as="article" className="manual-article">
               <InstallationGuide language={language} />
             </VStack>
-            <VStack key={language} ref={article} as="article" className="manual-article" dangerouslySetInnerHTML={localizedArticle[language]} onClick={openPhoto} />
+            <VStack key={language} ref={article} as="article" className="manual-article" dangerouslySetInnerHTML={localizedArticle[language]} />
           </VStack>
         </HStack>
-        <dialog ref={dialog} className="photo-dialog" aria-label={labels.photo} onClick={event => {
-          if (event.target === event.currentTarget) event.currentTarget.close();
-        }} onClose={() => {
-          setPhoto(null);
-          previousFocus.current?.focus();
-        }}>
-          {photo && <VStack as="figure" gap={3}>
-            <HStack hAlign="end"><Button variant="secondary" label={labels.close} onClick={() => dialog.current.close()} /></HStack>
-            <img src={photo.src} alt={photo.caption} />
-            <figcaption>{photo.caption}</figcaption>
-          </VStack>}
-        </dialog>
       </VStack>
     </Theme>
   );

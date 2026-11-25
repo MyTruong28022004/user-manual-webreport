@@ -55,28 +55,27 @@ function manualSource() {
       if (!note || !wrapEnd.test(article[2]) || !script) {
         throw new Error('Could not read the article or reference tools in WebReport Manual.html');
       }
-      const content = article[2].replace(wrapEnd, '');
+      const content = article[2].replace(wrapEnd, '').replace(
+        /src="(assets\/captures\/seldb-common-(?:menu|query)\.png)"/g,
+        (_, path) => {
+          const screenshot = fileURLToPath(new URL(path, import.meta.url));
+          this.addWatchFile(screenshot);
+          return `src="data:image/png;base64,${readFileSync(screenshot, 'base64')}"`;
+        },
+      );
       const sizes = readImageSizes(script[1]);
       const reference = script[1]
-        .replace(/\/\* ---- lightbox ---- \*\/[\s\S]*?(?=\/\* ---- copy ---- \*\/)/, '')
         .replaceAll('document.querySelector', 'container.querySelector')
         .replaceAll('document.getElementById(', 'find(')
         .replace("document.addEventListener('click'", "container.addEventListener('click'")
-        .replaceAll('aria-label="Phóng to ảnh"', 'aria-label="\'+words.zoom+\'"')
-        .replace('<img loading="lazy" alt=', '<img loading="lazy" \'+imageSize(n)+\' alt=')
-        .replaceAll("b.textContent='Đã chép'", 'b.textContent=words.copied')
-        .replaceAll("b.textContent='Đã chọn, nhấn Ctrl+C'", 'b.textContent=words.selected')
-        .replaceAll("b.textContent='Sao chép'", 'b.textContent=words.copy')
+        .replace('loading="lazy" alt=', 'loading="lazy" \'+imageSize(n)+\' alt=')
+        .replace(/^const copyMessages = .*;$/m, 'const copyMessages = words;')
         .replace('const g=G[i];', `const g=G[i];
-    const [,title,condition,description] = gallery[i] ?? [g.k,g.title,g.cond,g.desc];
-    const code = language === 'ja' ? g.code.replace('Report gọi:', 'リンク元:').replace('Report nhận:', 'リンク先:') : g.code;`)
+    const [title,description] = gallery[i] ?? [g.title,g.desc];`)
         .replace("g.title+'</h4>'", "title+'</h4>'")
-        .replace(/\(g\.img\?[^\r\n]+/, `(g.img?'<figure class="pv"><button class="fig" type="button" aria-label="'+words.zoom+'"><img '+imageSize(g.img)+' alt="'+title+'" src="'+IMG[g.img]+'"></button></figure>':'')+`)
+        .replace(`alt="'+g.title+'" src="'+IMG[g.img]`, `'+imageSize(g.img)+' alt="'+title+'" src="'+IMG[g.img]`)
         .replace("+g.desc", "+description")
-        .replace('Search Condition phù hợp:</b> \'+g.cond', "'+words.condition+'</b> '+condition")
-        .replace('>Value/formula</span>', ">'+words.formula+'</span>")
-        .replace('>Sao chép</button><pre>\'+esc(g.code)', ">'+words.copy+'</button><pre>'+esc(code)")
-        .replace('b.textContent=g.k', 'b.textContent=gallery[i]?.[0] ?? g.k')
+        .replace(/^  const galleryLabels = .*;$/m, '  const galleryLabels = words;')
         .replace('rows.forEach(r=>', 'rows.forEach((r,index)=>')
         .replace("+r[2]+'</td>'", "+(conditions[index] ?? r[2])+'</td>'");
       return `export const content = ${inlineString({vi: content, ja: translateMarkup(content, translations)})};
@@ -91,8 +90,8 @@ export function initializeReference(container, language) {
   const gallery = language === 'ja' ? ${inlineString(japaneseGallery)} : [];
   const conditions = language === 'ja' ? ${inlineString(japaneseConditions)} : [];
   const words = language === 'ja'
-    ? {zoom:'画面例を拡大', copy:'コピー', copied:'コピーしました', selected:'選択済み。Ctrl+C でコピー', condition:'対応する検索条件：', formula:'値／式'}
-    : {zoom:'Phóng to ảnh', copy:'Sao chép', copied:'Đã chép', selected:'Đã chọn, nhấn Ctrl+C', condition:'Search Condition phù hợp:', formula:'Value/formula'};
+    ? {copy:'コピー', copied:'コピーしました', selected:'選択したコードを Ctrl+C でコピーできます。', formula:'値／式', multiple:'複数選択には <code>@SEL2</code> を使い、<b>Condition</b> に <code>One of</code> を指定します。'}
+    : {copy:'Sao chép', copied:'Đã sao chép', selected:'Đã chọn mã. Nhấn Ctrl+C để sao chép.', formula:'Value/formula', multiple:'Để chọn nhiều mục, dùng <code>@SEL2</code> và đặt <b>Condition</b> thành <code>One of</code>.'};
   ${reference}
 }`;
     },

@@ -28,23 +28,23 @@ const templates = {
 const guideByLanguage = {
   vi: {
     title: 'Cài đặt và cấu hình WebReport 2.0 Smart',
-    intro: 'Hướng dẫn cho Windows 64-bit, sử dụng gói dùng thử 5.10.11.b của WebReport 2.0 Smart (tên thư mục WebReport51011bTrial). 5.10.11.b là phiên bản gói được dùng trong ví dụ; hãy đối chiếu tài liệu đi kèm nếu dùng gói khác. Chuẩn bị tài khoản quản trị Windows và cổng 8080 còn trống. Các đường dẫn bên dưới dùng thư mục C:\\WebReport làm ví dụ.',
-    save: 'Tải mẫu',
+    intro: 'Các bước dưới đây dùng Windows 64-bit và gói dùng thử WebReport 2.0 Smart 5.10.11.b (WebReport51011bTrial). Trước khi cài, chuẩn bị tài khoản quản trị Windows và kiểm tra cổng 8080 còn trống. Các đường dẫn dùng C:\\WebReport làm ví dụ. Nếu dùng bộ cài khác, hãy đối chiếu tài liệu đi kèm.',
+    save: 'Tải tệp cấu hình mẫu',
     steps: [
       {
         id: 'setup-resources', title: '1. Tải và kiểm tra các tệp cài đặt',
         items: [
           'Bấm [[java]]. Lưu tệp `microsoft-jdk-21.0.1-windows-x64.zip` vào thư mục Tải xuống. Đây là bản OpenJDK 21.0.1 cho Windows 64-bit của Microsoft.',
           'Bấm [[tomcat]]. Lưu tệp `apache-tomcat-9.0.113.exe` vào thư mục Tải xuống.',
-          'Mở [[webreport]], bấm `ダウンロードはこちら` (Tải xuống), đọc điều kiện dùng thử, điền biểu mẫu và nhập địa chỉ email nhận liên kết. Gửi biểu mẫu.',
-          'Mở email do JBCC gửi, bấm liên kết trong email và lưu tệp ZIP. Bấm chuột phải vào tệp ZIP, chọn `Extract All…` (Giải nén tất cả), chọn một thư mục rồi bấm `Extract`. Xác nhận bên trong có thư mục `WebReport51011bTrial` và tệp `licence.cvlic` nằm cùng cấp với thư mục đó. Nếu gói tải về mang phiên bản khác, đối chiếu hướng dẫn Windows và Tomcat đi kèm gói đó.',
+          'Mở [[webreport]] và bấm `ダウンロードはこちら` (Tải xuống). Đọc điều kiện dùng thử, điền biểu mẫu và gửi bằng địa chỉ email bạn muốn dùng để nhận liên kết.',
+          'Tải tệp ZIP từ liên kết trong email của JBCC. Bấm chuột phải vào tệp, chọn `Extract All…` (Giải nén tất cả), rồi chọn thư mục đích và bấm `Extract`. Sau khi giải nén, kiểm tra tệp `licence.cvlic` nằm cùng cấp với thư mục `WebReport51011bTrial`.',
         ],
         labels: {java: 'Tải OpenJDK 21.0.1', tomcat: 'Tải Apache Tomcat 9.0.113', webreport: 'trang tải bản dùng thử WebReport của JBCC'},
       },
       {
         id: 'setup-server', title: '2. Cài Java, cấu hình Tomcat và triển khai WebReport',
         items: [
-          'Bấm chuột phải vào tệp ZIP Java và chọn `Extract All…`. Chép thư mục đã giải nén có chứa `bin` vào `C:\\WebReport\\jdk-21.0.1`. Kiểm tra bằng lệnh PowerShell `& "C:\\WebReport\\jdk-21.0.1\\bin\\java.exe" -version`.',
+          'Giải nén tệp ZIP Java bằng `Extract All…`. Đặt thư mục JDK tại `C:\\WebReport\\jdk-21.0.1` sao cho thư mục `bin` nằm ngay bên trong. Mở PowerShell và chạy `& "C:\\WebReport\\jdk-21.0.1\\bin\\java.exe" -version` để kiểm tra phiên bản.',
           'Chạy `apache-tomcat-9.0.113.exe` bằng quyền quản trị. Chọn dịch vụ Windows tên `Tomcat9`, cổng HTTP `8080` và thư mục cài `C:\\WebReport\\Tomcat9`. Khi được hỏi thư mục Java, chọn `C:\\WebReport\\jdk-21.0.1`.',
           'Mở `services.msc`, tìm Apache Tomcat, dừng dịch vụ `Tomcat9` và sao lưu thư mục `C:\\WebReport\\Tomcat9\\conf`. Nếu cần xác nhận Java, chạy `C:\\WebReport\\Tomcat9\\bin\\tomcat9w.exe`, vào thẻ `Java` và đặt `Java Virtual Machine` thành `C:\\WebReport\\jdk-21.0.1\\bin\\server\\jvm.dll`.',
           'Trong bộ cài, mở `WebReport51011bTrial\\WRS\\Support\\Windows\\Tomcat 9.0\\conf`. Với máy cài mới, chép `server.xml` và `context.xml` vào `C:\\WebReport\\Tomcat9\\conf`. Nếu Tomcat đã phục vụ ứng dụng khác, mở từng tệp và bổ sung các cấu hình bên dưới vào bản hiện tại.',
@@ -58,7 +58,7 @@ const guideByLanguage = {
           'Tạo thư mục `C:\\cvconfig\\cvdb\\h2`. Trong `services.msc`, mở thuộc tính `Tomcat9`, xem thẻ `Log On` để biết tài khoản chạy dịch vụ. Trong thuộc tính thư mục H2, vào `Security → Edit` và cấp quyền `Modify` cho đúng tài khoản đó.',
           'Mở `C:\\WebReport\\Tomcat9\\conf\\context.xml`, tìm `<Resource name="jdbc/CVDB"` nằm bên trong `<Context>`. Đối chiếu với mẫu H2 bên dưới. Nếu chưa có, thêm một Resource vào trước `</Context>`. Chỉ giữ một mục `jdbc/CVDB` và thay `REPLACE_WITH_H2_PASSWORD` bằng mật khẩu H2 thực tế nếu dùng mẫu.',
           'Trong `services.msc`, bấm `Start` cho `Tomcat9`. Khi WAR triển khai xong, mở `http://localhost:8080/cvbi/CVDB/createdb_h2.jsp` ngay trên máy chủ. Nhập JNDI `jdbc/CVDB`, User ID `dbadmin`, DBMS `h2` và Verbose `true`. Nếu biểu mẫu yêu cầu mật khẩu, dùng cùng mật khẩu đã đặt trong `context.xml`.',
-          'Chạy khởi tạo. Khi thấy `正常に終了しました`, xác nhận tệp `C:\\cvconfig\\cvdb\\h2\\cvdb.mv.db` đã tạo và bấm `Restart` cho `Tomcat9`. Thử mở `http://localhost:8080/cvbi/login`.',
+          'Chạy khởi tạo. Khi hệ thống hiển thị `正常に終了しました`, kiểm tra tệp `C:\\cvconfig\\cvdb\\h2\\cvdb.mv.db` đã được tạo. Khởi động lại `Tomcat9` bằng `Restart`, rồi mở `http://localhost:8080/cvbi/login` để kiểm tra.',
         ],
         template: 'h2',
       },
@@ -68,7 +68,7 @@ const guideByLanguage = {
           'Mở `WebReport51011bTrial\\WRS\\admin`, bấm chuột phải vào `WebReportSmartAdministrator32.exe` và chọn `Run as administrator`.',
           'Sau khi cài, mở `C:\\CustomerVision\\WebReport\\CvBiMgr3u.exe` hoặc mở tệp cùng tên từ thư mục cài đã chọn. Nhập `localhost:8080/cvbi` vào ô máy chủ, bỏ tiền tố `http://`.',
           'Đăng nhập bằng tài khoản quản trị. Với bản thử nghiệm mới, tên đăng nhập và mật khẩu khởi tạo đều là `cvadmin`. Đổi mật khẩu trước khi cho phép thiết bị khác truy cập.',
-          'Mở `管理 → ライセンス → インポート`, chọn tệp `licence.cvlic` nằm cùng cấp với thư mục `WebReport51011bTrial` và kiểm tra ngày hết hạn hiển thị. Nếu cần xử lý tài khoản dịch vụ để đăng ký, xem tệp `WRS\\Doc\\ja_JP\\ライセンスの登録と解除手順.pdf` trong bộ cài.',
+          'Mở `管理 → ライセンス → インポート` và chọn tệp `licence.cvlic` nằm cùng cấp với thư mục `WebReport51011bTrial`. Sau khi nhập, kiểm tra ngày hết hạn. Nếu cần đăng ký giấy phép bằng tài khoản dịch vụ, xem tệp `WRS\\Doc\\ja_JP\\ライセンスの登録と解除手順.pdf` trong bộ cài.',
         ],
       },
       {
@@ -82,15 +82,15 @@ const guideByLanguage = {
       {
         id: 'setup-web', title: '6. Đăng nhập và chạy báo cáo trên trình duyệt',
         items: [
-          'Trên máy chủ, mở `http://localhost:8080/cvbi/login`. Từ máy khác, dùng địa chỉ truy cập được cấp cho máy chủ Tomcat.',
-          'Đăng nhập bằng tài khoản người xem. Mở báo cáo trong cây menu, nhập điều kiện tìm kiếm và kiểm tra kết quả. Nếu không thấy báo cáo, kiểm tra thư mục lưu và quyền truy cập menu.',
+          'Trên máy cài Tomcat, mở `http://localhost:8080/cvbi/login`. Từ máy khác, thay `localhost` bằng tên hoặc địa chỉ IP của máy chủ. Nếu đã cấu hình cổng HTTP khác ở bước 2, thay `8080` bằng số cổng đó.',
+          'Đăng nhập bằng tài khoản người xem. Chọn báo cáo trong cây menu, nhập hoặc chọn giá trị tìm kiếm rồi kiểm tra kết quả. Nếu báo cáo không xuất hiện, kiểm tra thư mục đã lưu và quyền truy cập menu của tài khoản.',
           'Nếu không mở được trang đăng nhập, kiểm tra trạng thái `Tomcat9` trong `services.msc`, tệp `webapps\\cvbi.war` và nhật ký mới nhất trong `C:\\WebReport\\Tomcat9\\logs`.',
         ],
       },
       {
         id: 'setup-oracle', title: '7. Cấu hình Oracle JDBC nếu báo cáo dùng Oracle',
         items: [
-          'Mở [[oracle]]. Chọn bản trình điều khiển phù hợp với phiên bản Oracle Database và Java 21 đang dùng. Trong bảng tải xuống, bấm `ojdbc11.jar` nếu bản đó hỗ trợ Java 21, rồi lưu tệp JAR.',
+          'Mở [[oracle]] và chọn trình điều khiển tương thích với cả Oracle Database và Java 21. Nếu phiên bản phù hợp cung cấp `ojdbc11.jar`, tải tệp đó.',
           'Dừng `Tomcat9`. Chép tệp JAR vào `C:\\WebReport\\Tomcat9\\lib`. Mở `conf\\context.xml` và thêm một Resource có tên riêng, ví dụ `jdbc/OracleReports`, trước `</Context>`. Giữ nguyên Resource `jdbc/CVDB` của H2.',
           'Dùng mẫu Oracle cho kết nối TCP theo service name. Thay `ORACLE_HOST`, `ORACLE_SERVICE`, `ORACLE_USER` và mật khẩu bằng thông tin do quản trị viên cơ sở dữ liệu cấp. Nếu máy chủ dùng TCPS hoặc wallet, dùng chuỗi kết nối và cấu hình wallet do quản trị viên cung cấp.',
           'Khởi động lại Tomcat. Trong Admin, tạo nguồn dữ liệu trỏ đến `jdbc/OracleReports`, thử kết nối, sau đó đăng ký bảng hoặc view cần dùng.',
@@ -156,7 +156,7 @@ const guideByLanguage = {
       {
         id: 'setup-web', title: '6. ブラウザーでログインして帳票を実行',
         items: [
-          'サーバーで `http://localhost:8080/cvbi/login` を開きます。別の端末では案内された Tomcat サーバーのアドレスを使用します。',
+          'Tomcat をインストールしたサーバーでは `http://localhost:8080/cvbi/login` を開きます。別の端末からは `localhost` をサーバーのホスト名または IP アドレスに置き換えます。手順 2 で別の HTTP ポートを設定した場合は、`8080` も変更します。',
           '閲覧者のアカウントでログインします。メニューツリーで帳票を開き、条件を入力して結果を確認します。帳票が表示されない場合は保存先と閲覧権限を確認します。',
           'ログイン画面が表示されない場合は、`services.msc` の `Tomcat9` の状態、`webapps\\cvbi.war` の配置、`C:\\WebReport\\Tomcat9\\logs` の最新ログを確認します。',
         ],
@@ -208,9 +208,7 @@ export function InstallationGuide({language}) {
                     <p>{inline(item, labels)}</p>
                     {evidence && (
                       <figure className="setup-evidence">
-                        <button className="fig" type="button">
-                          <img src={evidence.src} width={evidence.width} height={evidence.height} alt={evidence[language]} loading="lazy" />
-                        </button>
+                        <img className="screenshot" src={evidence.src} width={evidence.width} height={evidence.height} alt={evidence[language]} loading="lazy" />
                         <figcaption>{evidence[language]}</figcaption>
                       </figure>
                     )}

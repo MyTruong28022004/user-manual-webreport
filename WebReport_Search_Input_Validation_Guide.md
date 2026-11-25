@@ -50,7 +50,7 @@ Ví dụ text đơn giản:
 @INPUT(
     @NAME("Text"),
     @GUIDE("Enter part of the description"),
-    @SEQ(1),
+    @SEQ(11),
     @WIDTH(180),
     @ENABLE(7),
     ''
@@ -103,7 +103,7 @@ Text input là `@INPUT` không dùng `@SEL`, `@CHECKBOX`, `@RADIO` hoặc `@CALE
 Value/formula:
 
 ```text
-@INPUT(@NAME("Text"),@GUIDE("Enter text"),@SEQ(1),@WIDTH(180),@ENABLE(7),'')
+@INPUT(@NAME("Text"),@GUIDE("Enter text"),@SEQ(11),@WIDTH(180),@ENABLE(7),'')
 ```
 
 Search Condition:
@@ -116,7 +116,7 @@ Condition : Contains Character
 ### Ví dụ 2 - nhập code và tự đổi sang chữ hoa
 
 ```text
-@INPUT(@NAME("Code"),@GUIDE("Example: C001"),@UPPER(),@SEQ(2),@WIDTH(100),@ENABLE(7),'')
+@INPUT(@NAME("Code"),@GUIDE("Example: C001"),@UPPER(),@SEQ(11),@WIDTH(100),@ENABLE(7),'')
 ```
 
 Search Condition:
@@ -219,23 +219,23 @@ Giá trị hợp lệ theo manual: `1` đến `32767`.
 
 Quy tắc:
 
-- Sắp xếp tăng dần theo `@SEQ`.
+- WebReport sắp xếp các ô từ trái sang phải theo giá trị `@SEQ` tăng dần. Dùng `@SEQ(11)` cho dòng 1, cột 1, `@SEQ(12)` cho dòng 1, cột 2 và `@SEQ(21)` cho dòng 2, cột 1.
 - Khi phần hàng chục trở lên thay đổi, input chuyển sang dòng tiếp theo.
 - Khi phần hàng nghìn thay đổi, input chuyển sang một framework/khung khác ở Web Execution.
 
 ### Ví dụ 1 - 5 filter mỗi dòng
 
 ```text
-Row 1: @SEQ(1),  @SEQ(2),  @SEQ(3),  @SEQ(4),  @SEQ(5)
-Row 2: @SEQ(11), @SEQ(12), @SEQ(13), @SEQ(14), @SEQ(15)
+Dòng 1: @SEQ(11), @SEQ(12), @SEQ(13), @SEQ(14), @SEQ(15)
+Dòng 2: @SEQ(21), @SEQ(22), @SEQ(23), @SEQ(24), @SEQ(25)
 ```
 
 ### Ví dụ 2 - ba dòng
 
 ```text
-Row 1: @SEQ(1),  @SEQ(2),  @SEQ(3)
-Row 2: @SEQ(11), @SEQ(12), @SEQ(13)
-Row 3: @SEQ(21), @SEQ(22), @SEQ(23)
+Dòng 1: @SEQ(11), @SEQ(12), @SEQ(13)
+Dòng 2: @SEQ(21), @SEQ(22), @SEQ(23)
+Dòng 3: @SEQ(31), @SEQ(32), @SEQ(33)
 ```
 
 Không dùng `1001` chỉ để xuống dòng vì thay đổi hàng nghìn có thể tạo khung mới.
@@ -313,7 +313,7 @@ Nếu display và actual value khác nhau:
 ### Ví dụ 1 - năm tài chính
 
 ```text
-@INPUT(@NAME("Year"),@SEL("2024;2024","2025;2025","2026;2026"),@SEQ(5),@ENABLE(7),'')
+@INPUT(@NAME("Year"),@SEL("2024;2024","2025;2025","2026;2026"),@SEQ(11),@ENABLE(7),'')
 ```
 
 ### Ví dụ 2 - trạng thái
@@ -429,7 +429,7 @@ Cú pháp:
 ### Ví dụ 1 - Active dạng số 0/1
 
 ```text
-@INPUT(@NAME(""),@CHECKBOX("Active;1"),@SEQ(4),@ENABLE(7),'')
+@INPUT(@NAME(""),@CHECKBOX("Active;1"),@SEQ(11),@ENABLE(7),'')
 ```
 
 Nếu cột `is_active` là Numeric/Integer, phải truyền `1`, không truyền chuỗi `'true'`.
@@ -521,7 +521,7 @@ Không tự sửa thành `@CALENDAR`.
 ### Ví dụ 1 - một ngày
 
 ```text
-@INPUT(@NAME("Target Date"),@CALENDER("YYYY-MM-DD"),@SEQ(3),@WIDTH(100),@ENABLE(7),'')
+@INPUT(@NAME("Target Date"),@CALENDER("YYYY-MM-DD"),@SEQ(11),@WIDTH(100),@ENABLE(7),'')
 ```
 
 ### Ví dụ 2 - From/To
@@ -806,17 +806,17 @@ Các trường hợp này cần cân nhắc:
 ### 29.1 Search form hai dòng, mỗi dòng năm item
 
 ```text
-Code       : @INPUT(@NAME("Code"),@SELDB("My Report","SampleReports","SearchCodeMaster","name;code"),@SEQ(1),@WIDTH(160),@ENABLE(7),'')
-Text       : @INPUT(@NAME("Text"),@SEQ(2),@WIDTH(180),@ENABLE(7),'')
-Date       : @INPUT(@NAME("Date"),@CALENDER("YYYY-MM-DD"),@SEQ(3),@WIDTH(100),@ENABLE(7),'')
-Active     : @INPUT(@NAME(""),@CHECKBOX("Active;1"),@SEQ(4),@ENABLE(7),'')
-Year       : @INPUT(@NAME("Year"),@SEL("2024;2024","2025;2025","2026;2026"),@SEQ(5),@ENABLE(7),'')
+Code       : @INPUT(@NAME("Code"),@SELDB("My Report","SampleReports","SearchCodeMaster","name;code"),@SEQ(11),@WIDTH(160),@ENABLE(7),'')
+Text       : @INPUT(@NAME("Text"),@SEQ(12),@WIDTH(180),@ENABLE(7),'')
+Date       : @INPUT(@NAME("Date"),@CALENDER("YYYY-MM-DD"),@SEQ(13),@WIDTH(100),@ENABLE(7),'')
+Active     : @INPUT(@NAME(""),@CHECKBOX("Active;1"),@SEQ(14),@ENABLE(7),'')
+Year       : @INPUT(@NAME("Year"),@SEL("2024;2024","2025;2025","2026;2026"),@SEQ(15),@ENABLE(7),'')
 
-From       : @INPUT(@NAME("From"),@CALENDER("YYYY-MM-DD"),@SEQ(11),@WIDTH(100),@ENABLE(7),'')
-To         : @INPUT(@NAME("To"),@CALENDER("YYYY-MM-DD"),@SEQ(12),@WIDTH(100),@ENABLE(7),'')
-Department : @INPUT(@NAME("Department"),@SELDB("My Report","Master","DepartmentList","department_name;department_code"),@SEQ(13),@ENABLE(7),'')
-Status     : @INPUT(@NAME("Status"),@SEL("All;","Open;O","Closed;C"),@SEQ(14),@ENABLE(7),'')
-Category   : @INPUT(@NAME("Category"),@SELDB("My Report","Master","CategoryList","category_name;category_code"),@SEQ(15),@ENABLE(7),'')
+From       : @INPUT(@NAME("From"),@CALENDER("YYYY-MM-DD"),@SEQ(21),@WIDTH(100),@ENABLE(7),'')
+To         : @INPUT(@NAME("To"),@CALENDER("YYYY-MM-DD"),@SEQ(22),@WIDTH(100),@ENABLE(7),'')
+Department : @INPUT(@NAME("Department"),@SELDB("My Report","Master","DepartmentList","department_name;department_code"),@SEQ(23),@ENABLE(7),'')
+Status     : @INPUT(@NAME("Status"),@SEL("All;","Open;O","Closed;C"),@SEQ(24),@ENABLE(7),'')
+Category   : @INPUT(@NAME("Category"),@SELDB("My Report","Master","CategoryList","category_name;category_code"),@SEQ(25),@ENABLE(7),'')
 ```
 
 ### 29.2 Search bắt buộc Company, các filter khác optional

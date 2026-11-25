@@ -3,17 +3,17 @@ export const interfaceText = {
     title: 'WebReport 2.0 Smart | Hướng dẫn sử dụng',
     skip: 'Đến nội dung chính', home: 'WebReport, về tổng quan', contents: 'Mục lục',
     light: 'Bật giao diện sáng', dark: 'Bật giao diện tối', language: 'Ngôn ngữ hiển thị',
-    search: 'Tìm trong hướng dẫn', placeholder: 'Ví dụ: JEX, Đặt BK, @INPUT',
+    search: 'Tìm trong hướng dẫn', placeholder: 'Ví dụ: .jex, BK, @INPUT',
     overview: 'Tổng quan', noResults: 'Không tìm thấy mục phù hợp.',
     label: 'Tài liệu người dùng',
-    summary: 'Kết nối dữ liệu, thiết kế báo cáo và xem kết quả trên web. Tra cứu cú pháp @INPUT khi cần tạo điều kiện tìm kiếm.',
-    chapters: 'Các phần hướng dẫn', before: 'Trước khi bắt đầu', photo: 'Xem ảnh minh họa', close: 'Đóng ảnh',
+    summary: 'Cài đặt WebReport, kết nối dữ liệu và thiết kế báo cáo để người dùng tìm kiếm, xem và xuất kết quả trên web.',
+    chapters: 'Các phần hướng dẫn', before: 'Trước khi bắt đầu',
     sections: [
-      ['Cài đặt', 'Thiết lập máy chủ, công cụ quản trị, Designer và đăng nhập Web.'],
+      ['Cài đặt', 'Cài đặt máy chủ, Admin và Designer, sau đó thử đăng nhập trên trình duyệt.'],
       ['Admin', 'Kết nối nguồn dữ liệu, quản lý menu và nhập hoặc xuất tệp .jex.'],
       ['Designer', 'Thiết kế báo cáo, chọn cột và tạo điều kiện tìm kiếm.'],
       ['Web', 'Tìm kiếm, xem kết quả và xuất dữ liệu sang Excel hoặc CSV.'],
-      ['Tra cứu @INPUT', 'Xem cú pháp, ví dụ và tạo công thức cho vùng tìm kiếm.'],
+      ['Tra cứu @INPUT', 'Chọn loại ô nhập, xem ví dụ và tạo công thức để dán vào Designer.'],
     ],
   },
   ja: {
@@ -24,7 +24,7 @@ export const interfaceText = {
     overview: '概要', noResults: '該当する項目が見つかりません。',
     label: 'ユーザーガイド',
     summary: 'システムの導入、データソースへの接続、帳票の設計、ブラウザーでの検索結果の確認まで説明します。',
-    chapters: 'ガイドの章', before: 'はじめに', photo: '画面例を拡大', close: '閉じる',
+    chapters: 'ガイドの章', before: 'はじめに',
     sections: [
       ['インストールと設定', 'サーバー、管理ツール、定義設計ツール、ウェブ版を設定。'],
       ['管理ツール', 'データ接続、メニューの管理、.jex ファイルの入出力。'],
@@ -68,15 +68,12 @@ export const japaneseCaptions = {
 };
 
 export const japaneseGallery = [
-  ['テキスト', '自由入力', 'Contains Character または =', '自由に入力できます。正規表現や文字数の制限はありません。型エラーを避けるため、項目の型と演算子を合わせてください。'],
-  ['大文字', '入力を大文字に変換', '=', '入力を大文字に統一します。コードの形式は検証しません。小文字に変換するには <code>@LOWER()</code> を使います。'],
-  ['プルダウン', '単一選択プルダウン（@SEL）', '=', '候補は <code>"表示名;値"</code> の形式で指定します。先頭候補の値を空にすると全件が対象になります。複数選択には <code>@SEL2</code> と <code>One of</code> を使います。'],
-  ['カレンダー', 'カレンダー（@CALENDER）', '=, >=, <=, Range', '入力欄の右にあるボタンで日付を選びます。関数名は <code>CALENDER</code> です。日時列の終了日は、翌日より前という条件にすると当日分をすべて含められます。'],
-  ['ラジオ', 'ラジオボタン（@RADIO）', '=', '候補が少ない場合に適しています。「指定なし」の値を空にすると検索条件が無効になります。既定値で最初から選ぶ項目を指定できます。'],
-  ['チェック', 'チェックボックス（@CHECKBOX）', '=、複数選択の場合は One of', 'DB の列が数値型・整数型の場合は <code>1</code> を渡します。文字列 <code>true</code> は数値として扱えません。'],
-  ['DB の候補', 'DB のプルダウン、チェックボックス、ラジオボタン', '= または One of（SELDB2 の場合）', '構文は <code>@SELDB("Menu","Folder","Query","表示項目;値項目")</code> です。プルダウンは最大 2,000 件、チェックボックスとラジオボタンは最大 100 件です。参照照会の実行権限が必要です。値項目は検索対象と同じ型にします。'],
-  ['リンク', '帳票間で値を渡す', '=', 'リンク元から値を取得できると、<code>@GET</code> を使う入力欄は検索画面に表示されません。すべての入力欄に値がある場合は帳票がそのまま実行されます。'],
-  ['Excel', 'XLS に検索条件を書き込む', '検索条件への影響なし', '<code>.xls</code> 出力で使用します。セルは <code>A5</code>、<code>R5C3</code>、<code>R[-2]C[3]</code> などで指定します。<code>%N</code> はラベル、<code>%V</code> は値、<code>%C</code> は条件、<code>%I</code> は項目名、<code>%T</code> はテーブル名です。'],
+  ['自由入力', 'キーワードやコードを手入力できます。文字列型の項目では、部分一致に <code>Contains Character</code>、完全一致に <code>=</code> を使います。'],
+  ['プルダウン（@SEL と @SEL2）', '単一選択には <code>@SEL</code> を使います。候補は <code>"表示名;値"</code> の形式で指定します。たとえば <code>"All;"</code> は All と表示され、検索値は空になります。'],
+  ['カレンダー（@CALENDER）', '入力欄の右にあるボタンで日付を選びます。関数名は <code>CALENDER</code> です。日時列の終了日は、翌日より前という条件にすると当日分をすべて含められます。'],
+  ['ラジオボタン（@RADIO）', '候補が少ない場合に適しています。「指定なし」の値を空にすると検索条件が無効になります。既定値で最初から選ぶ項目を指定できます。'],
+  ['チェックボックス（@CHECKBOX）', '有効なレコードだけを表示するなど、条件をオンにする場合に使います。この例では、チェックすると数値型の列に <code>1</code> を渡します。'],
+  ['Common メニューからプルダウンを作成（@SELDB）'],
 ];
 
 export const japaneseConditions = [
