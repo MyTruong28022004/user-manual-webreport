@@ -56,7 +56,7 @@ function manualSource() {
         throw new Error('Could not read the article or reference tools in WebReport Manual.html');
       }
       const content = article[2].replace(wrapEnd, '').replace(
-        /src="(assets\/captures\/seldb-common-(?:menu|query)\.png)"/g,
+        /src="(assets\/manual\/seldb-common-(?:menu|query)\.png)"/g,
         (_, path) => {
           const screenshot = fileURLToPath(new URL(path, import.meta.url));
           this.addWatchFile(screenshot);
